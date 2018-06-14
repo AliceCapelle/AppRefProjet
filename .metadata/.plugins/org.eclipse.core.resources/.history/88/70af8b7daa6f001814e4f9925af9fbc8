@@ -1,0 +1,8 @@
+package user;
+
+public class Developpeur {
+private String login,passeword,ftp;
+public Developpeur(String login, String passeword, String ftp) {
+	
+}
+}

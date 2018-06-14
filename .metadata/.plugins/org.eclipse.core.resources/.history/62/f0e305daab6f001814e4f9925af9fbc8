@@ -1,0 +1,30 @@
+package user;
+
+public class Developpeur {
+	private String login,passeword,ftp;
+	
+	public Developpeur(String login, String passeword, String ftp) {
+	this.login=login;
+	this.passeword=passeword;
+	this.ftp=ftp;
+	}
+	
+	public String getFtp() {
+		return ftp;
+	}
+	public String getLogin() {
+		return login;
+	}
+	public void setFtp(String ftp) {
+		this.ftp = ftp;
+	}
+	
+	public boolean verifyPasseword(String login, String passeword){
+		
+		if(this.login==login && this.passeword==passeword){
+			return true;
+		}else 
+			return false;
+		
+	}
+}

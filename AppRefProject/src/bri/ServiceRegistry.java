@@ -24,6 +24,7 @@ public class ServiceRegistry {
 		try {
 			verifyBRI(c);
 			servicesClasses.add(c);
+			System.out.println("service ajouté!");
 		} catch (NonConformeException e) {
 			// TODO: handle exception
 		}

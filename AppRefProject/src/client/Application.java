@@ -17,7 +17,7 @@ import java.net.Socket;
  * mais est bien sur susceptible de (nombreuses) améliorations
  */
 class Application {
-		private final static int PORT_AMA= 3002;
+		private final static int PORT_AMA= 3000;
 		private final static String HOST = "localhost"; 
 	
 	public static void main(String[] args) {
