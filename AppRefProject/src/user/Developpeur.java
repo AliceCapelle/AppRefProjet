@@ -35,7 +35,7 @@ public class Developpeur {
 		String result = "tous mes services :##";
 		for(int i = 0; i<mesServices.size();i++){
 			int cpt = i;
-			result= mesServices.get(i).getSimpleName()+" : "+(cpt++)+"\n";
+			result= mesServices.get(i).getSimpleName()+" : "+(cpt++)+"##";
 		}
 
 		return result;

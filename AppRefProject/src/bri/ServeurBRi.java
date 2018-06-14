@@ -2,14 +2,18 @@ package bri;
 
 
 import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.net.*;
 
 
 public class ServeurBRi implements Runnable {
 	private ServerSocket listen_socket;
+	private Class<? extends Runnable> c;
 	
 	// Cree un serveur TCP - objet de la classe ServerSocket
-	public ServeurBRi(int port) {
+	public ServeurBRi(int port, Class<? extends Runnable> c) {
+		this.c=c;
 		try {
 			listen_socket = new ServerSocket(port);
 		} catch (IOException e) {
@@ -17,18 +21,20 @@ public class ServeurBRi implements Runnable {
 		}
 	}
 
-	// Le serveur ecoute et accepte les connections.
-	// pour chaque connection, il cree un ServiceInversion, 
-	// qui va la traiter.
+	//lance le service selon la classe envoyée
 	public void run() {
+		
 		try {
-			while(true)
-				new ServiceBRi(listen_socket.accept()).start();
+			new Thread(c.getConstructor(Socket.class).newInstance(listen_socket.accept())).start();
+		} catch (InstantiationException | IllegalAccessException
+				| IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		catch (IOException e) { 
-			try {this.listen_socket.close();} catch (IOException e1) {}
-			System.err.println("Pb sur le port d'écoute :"+e);
-		}
+
+		
+		
 	}
 
 	 // restituer les ressources --> finalize

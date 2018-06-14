@@ -5,11 +5,11 @@ import java.io.*;
 import java.net.*;
 
 
-class ServiceBRi implements Runnable {
+public class ServiceAMA implements Runnable {
 	
 	private Socket client;
 	
-	ServiceBRi(Socket socket) {
+	public ServiceAMA(Socket socket) {
 		client = socket;
 	}
 

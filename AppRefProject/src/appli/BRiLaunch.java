@@ -6,45 +6,20 @@ import java.net.URLClassLoader;
 import java.util.Scanner;
 
 import bri.ServeurBRi;
+import bri.ServiceAMA;
 import bri.ServiceRegistry;
+import bri.ServicePROG;
+
 
 public class BRiLaunch {
-	private final static int PORT_PROG = 3000;
+	private final static int PORT_PROG = 3500;
+	private final static int PORT_AMA = 3000;
+	
 	
 	public static void main(String[] args) {
-		@SuppressWarnings("resource")
-		Scanner clavier = new Scanner(System.in);
-		
-		// URLClassLoader sur ftp
-		String fileNameURL = "ftp://localhost:2121/classes/";
 
-		URLClassLoader urlcl= null;
-
-		try {
-			System.out.println(fileNameURL);
-			urlcl = URLClassLoader.newInstance(new URL[] {new URL(fileNameURL)});
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-		
-		System.out.println("Bienvenue dans votre gestionnaire dynamique d'activité BRi");
-		System.out.println("Pour ajouter une activité, celle-ci doit être présente sur votre serveur ftp");
-		System.out.println("A tout instant, en tapant le nom de la classe, vous pouvez l'intégrer");
-		System.out.println("Les clients se connectent au serveur 3000 pour lancer une activité");
-		
-		new Thread(new ServeurBRi(PORT_PROG)).start();
-		
-		while (true){
-				try {
-					String classeName = clavier.next();
-					  // ou file:///c:/etc
-					Class<?> c = urlcl.loadClass(classeName);
-					ServiceRegistry.addService(c);
-					// charger la classe et la déclarer au ServiceRegistry
-				} catch (Exception e) {
-					System.out.println(e);
-				}
-			}		
+		new Thread(new ServeurBRi(PORT_PROG, ServicePROG.class)).start();
+		new Thread(new ServeurBRi(PORT_AMA, ServiceAMA.class)).start();
+			
 	}
 }

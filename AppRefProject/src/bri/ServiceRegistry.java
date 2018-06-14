@@ -122,7 +122,7 @@ public class ServiceRegistry {
 
 	// liste les activit�s pr�sentes
 	public static String toStringue() {
-		String result = "Activit�s pr�sentes :##";
+		String result = "Activitees presentes :##";
 		for(int i = 0; i<servicesClasses.size();i++){
 			int cpt = i;
 			result= servicesClasses.get(i).getSimpleName()+" : "+(cpt++)+"\n";
