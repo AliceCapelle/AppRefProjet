@@ -129,9 +129,7 @@ public class ServiceRegistry {
 	public static Class<? extends Runnable> getServiceClass(int numService)throws java.lang.ArrayIndexOutOfBoundsException{
 		return servicesClasses.get(numService);
 	}
-	public static int getSizeOfServicesClasses(){
-		return servicesClasses.size();
-	}
+
 	// liste les activit�s pr�sentes
 	public static String toStringue() {
 		String result = "Activitees presentes :##";

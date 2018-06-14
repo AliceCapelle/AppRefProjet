@@ -38,8 +38,7 @@ public class ServiceAMA implements Runnable {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				}else
-					System.out.println("vous avez selectionné un mauvais choix dsl");
+				}
 					
 				
 	

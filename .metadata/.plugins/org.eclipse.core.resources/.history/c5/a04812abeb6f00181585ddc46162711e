@@ -52,7 +52,7 @@ class Application {
 				String line;
 				// reception + affichage
 					line = sin.readLine();
-					System.out.println(line.replaceAll("##", "\n"));					
+					System.out.println(line.replaceAll("##", "\n"));
 				// saisie + envoie 
 					sout.println(clavier.readLine());
 			}
