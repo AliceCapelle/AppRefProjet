@@ -1,4 +1,4 @@
-package bri;
+	package bri;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -11,7 +11,7 @@ import exception.NonConformeException;
 
 public class ServiceRegistry {
 	// cette classe est un registre de services
-	// partagée en concurrence par les clients et les "ajouteurs" de services,
+	// partagï¿½e en concurrence par les clients et les "ajouteurs" de services,
 	// un Vector pour cette gestion est pratique
 
 	static {
@@ -19,7 +19,7 @@ public class ServiceRegistry {
 	}
 	private static List<Class<?>> servicesClasses;
 
-	// ajoute une classe de service après contrôle de la norme BLTi
+	// ajoute une classe de service aprï¿½s contrï¿½le de la norme BLTi
 	public static void addService(Class<?> c) {
 		try {
 			verifyBRI(c);
@@ -29,7 +29,7 @@ public class ServiceRegistry {
 		}
 		
 	
-		// vérifier la conformité par introspection
+		// vï¿½rifier la conformitï¿½ par introspection
 		// si non conforme --> exception avec message clair
 		// si conforme, ajout au vector
 
@@ -39,7 +39,7 @@ public class ServiceRegistry {
 		String affiche = "";
 		int modifiers = c.getModifiers();
 
-		// implémente bri service
+		// implï¿½mente bri service
 		boolean isBri = false;
 
 		Class<?>[] interfacesImplementees = c.getInterfaces();
@@ -50,39 +50,33 @@ public class ServiceRegistry {
 			}
 		}
 		if (!isBri) {
-			System.out.println("votre classe n'implémente pas ServiceBRi revenez");
-			throw new NonConformeException();
+			throw new NonConformeException("Votre classe n'implï¿½mente pas ServiceBRi revenez");
 		}
 
 		// non abstract
 		if (Modifier.isAbstract(modifiers)) {
-			System.out.println("votre classe est abstract revenez");
-			throw new NonConformeException();
+			throw new NonConformeException("Votre classe est abstract revenez");
 		}
 		// public
 
 		if (!Modifier.isPublic(modifiers)) {
-			System.out.println("votre classe n'est pas publique revenez");
-			throw new NonConformeException();
+			throw new NonConformeException("Votre classe n'est pas publique revenez");
 		}
-		// construceteur publique sans exception nomé socket
+		// construceteur publique sans exception nomï¿½ socket
 
 		try {
 			if (c.getConstructor(java.net.Socket.class).getExceptionTypes().length==0){
 				int modifier3=c.getConstructor(java.net.Socket.class).getModifiers();
 				if(!Modifier.isPublic(modifier3)){
-					System.out.println("votre classe n'as pas un constructeur(Socket) revenez");
-					throw new NonConformeException();
+					throw new NonConformeException("Votre classe n'as pas un constructeur(Socket) revenez");
 				}
 			}	
 		} catch (NoSuchMethodException e) {
-			System.out.println("votre classe n'as pas un constructeur(Socket) revenez");
 			e.printStackTrace();
-			throw new NonConformeException();
+			throw new NonConformeException("Votre classe n'as pas un constructeur(Socket) revenez");
 		} catch (SecurityException e) {
-			System.out.println("votre classe n'as pas un constructeur(Socket) revenez");
 			e.printStackTrace();
-			throw new NonConformeException();
+			throw new NonConformeException("Votre classe n'as pas un constructeur(Socket) revenez");
 		}
 		
 		// un attribut socket private final
@@ -98,8 +92,7 @@ public class ServiceRegistry {
 			}
 		}
 		if (!isSocketPrivateFinal) {
-			System.out.println("votre classe n'as pas un attribut socket private final revenez");
-			throw new NonConformeException();
+			throw new NonConformeException("Votre classe n'as pas un attribut socket private final revenez");
 		}
 		// public static stringToString sans exception
 		boolean isStringToStringWithoutExep = false;
@@ -114,8 +107,7 @@ public class ServiceRegistry {
 			}
 		}
 		if (!isStringToStringWithoutExep) {
-			System.out.println("votre classe n'as pas StringToString Without Exep revenez");
-			throw new NonConformeException();
+			throw new NonConformeException("Votre classe n'as pas StringToString Without Exep revenez");
 		} else {
 			return true;
 		}
@@ -127,9 +119,9 @@ public class ServiceRegistry {
 
 	}
 
-	// liste les activités présentes
+	// liste les activitï¿½s prï¿½sentes
 	public static String toStringue() {
-		String result = "Activités présentes :##";
+		String result = "Activitï¿½s prï¿½sentes :##";
 		for(int i = 0; i<servicesClasses.size();i++){
 			int cpt = i;
 			result= servicesClasses.get(i).getSimpleName()+" : "+(cpt++)+"\n";
