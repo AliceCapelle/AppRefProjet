@@ -48,8 +48,10 @@ class Application {
 		
 			System.out.println("Connect� au serveur " + s.getInetAddress() + ":"+ s.getPort());
 			
+			String line;
+			
 			while (true){
-				String line;
+				
 				// reception + affichage
 					line = sin.readLine();
 					System.out.println(line.replaceAll("##", "\n"));					

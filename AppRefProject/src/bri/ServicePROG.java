@@ -95,7 +95,7 @@ public class ServicePROG implements Runnable {
 		while (true) {
 			try {
 				String classeName = in.readLine();
-				Class<?> c = urlcl.loadClass(classeName);
+				Class<? extends Runnable> c = (Class<? extends Runnable>) urlcl.loadClass(classeName);
 				ServiceRegistry.addService(c);
 				out.println("Class ajoutée avec succes!");
 			} catch (Exception e) {
