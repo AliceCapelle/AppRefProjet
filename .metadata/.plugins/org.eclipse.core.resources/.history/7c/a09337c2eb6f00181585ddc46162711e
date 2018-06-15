@@ -126,12 +126,10 @@ public class ServiceRegistry {
 	}
 
 	// renvoie la classe de service (numService -1)
-	public static Class<? extends Runnable> getServiceClass(int numService)throws java.lang.ArrayIndexOutOfBoundsException{
+	public static Class<? extends Runnable> getServiceClass(int numService)throws ArrayIndexOutOfBoundsException{
 		return servicesClasses.get(numService);
 	}
-	public static int getSizeOfServicesClasses(){
-		return servicesClasses.size();
-	}
+
 	// liste les activit�s pr�sentes
 	public static String toStringue() {
 		String result = "Activitees presentes :##";

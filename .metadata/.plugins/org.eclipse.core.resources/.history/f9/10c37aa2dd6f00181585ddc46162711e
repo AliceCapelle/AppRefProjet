@@ -1,4 +1,4 @@
-package bri;
+	package bri;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Vector;
 
 import exception.NonConformeException;
-import exception.OutOfBounds;
 
 public class ServiceRegistry {
 	// cette classe est un registre de services
@@ -16,12 +15,12 @@ public class ServiceRegistry {
 	// un Vector pour cette gestion est pratique
 
 	static {
-		servicesClasses = new Vector<Class<? extends Runnable>>();
+		servicesClasses = new Vector<Class<?>>();
 	}
-	private static List<Class<? extends Runnable>> servicesClasses;
+	private static List<Class<?>> servicesClasses;
 
 	// ajoute une classe de service apr�s contr�le de la norme BLTi
-	public static void addService(Class<? extends Runnable> c) {
+	public static void addService(Class<?> c) {
 		try {
 			verifyBRI(c);
 			servicesClasses.add(c);
@@ -29,18 +28,19 @@ public class ServiceRegistry {
 		} catch (NonConformeException e) {
 			// TODO: handle exception
 		}
-
-		// verifier la conformite par introspection
+		
+	
+		// v�rifier la conformit� par introspection
 		// si non conforme --> exception avec message clair
 		// si conforme, ajout au vector
 
 	}
 
-	private static boolean verifyBRI(Class<?> c) throws NonConformeException {
+	private static boolean verifyBRI(Class<?> c) throws NonConformeException{
 		String affiche = "";
 		int modifiers = c.getModifiers();
 
-		// implemente bri service
+		// impl�mente bri service
 		boolean isBri = false;
 
 		Class<?>[] interfacesImplementees = c.getInterfaces();
@@ -51,8 +51,7 @@ public class ServiceRegistry {
 			}
 		}
 		if (!isBri) {
-			throw new NonConformeException(
-					"Votre classe n'implemente pas ServiceBRi revenez");
+			throw new NonConformeException("Votre classe n'impl�mente pas ServiceBRi revenez");
 		}
 
 		// non abstract
@@ -62,30 +61,25 @@ public class ServiceRegistry {
 		// public
 
 		if (!Modifier.isPublic(modifiers)) {
-			throw new NonConformeException(
-					"Votre classe n'est pas publique revenez");
+			throw new NonConformeException("Votre classe n'est pas publique revenez");
 		}
 		// construceteur publique sans exception nom� socket
 
 		try {
-			if (c.getConstructor(java.net.Socket.class).getExceptionTypes().length == 0) {
-				int modifier3 = c.getConstructor(java.net.Socket.class)
-						.getModifiers();
-				if (!Modifier.isPublic(modifier3)) {
-					throw new NonConformeException(
-							"Votre classe n'as pas un constructeur(Socket) revenez");
+			if (c.getConstructor(java.net.Socket.class).getExceptionTypes().length==0){
+				int modifier3=c.getConstructor(java.net.Socket.class).getModifiers();
+				if(!Modifier.isPublic(modifier3)){
+					throw new NonConformeException("Votre classe n'as pas un constructeur(Socket) revenez");
 				}
-			}
+			}	
 		} catch (NoSuchMethodException e) {
 			e.printStackTrace();
-			throw new NonConformeException(
-					"Votre classe n'as pas un constructeur(Socket) revenez");
+			throw new NonConformeException("Votre classe n'as pas un constructeur(Socket) revenez");
 		} catch (SecurityException e) {
 			e.printStackTrace();
-			throw new NonConformeException(
-					"Votre classe n'as pas un constructeur(Socket) revenez");
+			throw new NonConformeException("Votre classe n'as pas un constructeur(Socket) revenez");
 		}
-
+		
 		// un attribut socket private final
 		boolean isSocketPrivateFinal = false;
 		Field[] f = c.getDeclaredFields();
@@ -99,26 +93,22 @@ public class ServiceRegistry {
 			}
 		}
 		if (!isSocketPrivateFinal) {
-			throw new NonConformeException(
-					"Votre classe n'as pas un attribut socket private final revenez");
+			throw new NonConformeException("Votre classe n'as pas un attribut socket private final revenez");
 		}
 		// public static stringToString sans exception
 		boolean isStringToStringWithoutExep = false;
 		Method[] m = c.getDeclaredMethods();
 		for (Method method : m) {
-			if (method.getReturnType().equals(String.class)
-					&& method.getName().equals("toStringue")) {
+			if (method.getReturnType().equals(String.class)&& method.getName().equals("toStringue")) {
 				int modifier2 = method.getModifiers();
 				Class[] exep = method.getExceptionTypes();
-				if (Modifier.isPublic(modifier2)
-						&& Modifier.isStatic(modifier2) && exep.length == 0) {
+				if (Modifier.isPublic(modifier2)&& Modifier.isStatic(modifier2)&&exep.length==0) {
 					isStringToStringWithoutExep = true;
 				}
 			}
 		}
 		if (!isStringToStringWithoutExep) {
-			throw new NonConformeException(
-					"Votre classe n'as pas StringToString Without Exep revenez");
+			throw new NonConformeException("Votre classe n'as pas StringToString Without Exep revenez");
 		} else {
 			return true;
 		}
@@ -126,19 +116,16 @@ public class ServiceRegistry {
 	}
 
 	// renvoie la classe de service (numService -1)
-	public static Class<? extends Runnable> getServiceClass(int numService)throws java.lang.ArrayIndexOutOfBoundsException{
-		return servicesClasses.get(numService);
+	public static void getServiceClass(int numService) {
+
 	}
-	public static int getSizeOfServicesClasses(){
-		return servicesClasses.size();
-	}
+
 	// liste les activit�s pr�sentes
 	public static String toStringue() {
 		String result = "Activitees presentes :##";
-		for (int i = 0; i < servicesClasses.size(); i++) {
+		for(int i = 0; i<servicesClasses.size();i++){
 			int cpt = i;
-			result = servicesClasses.get(i).getSimpleName() + " : " + (cpt++)
-					+ "##";
+			result= servicesClasses.get(i).getSimpleName()+" : "+(cpt++)+"\n";
 		}
 
 		return result;

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Vector;
 
 import exception.NonConformeException;
-import exception.OutOfBounds;
 
 public class ServiceRegistry {
 	// cette classe est un registre de services
@@ -52,7 +51,7 @@ public class ServiceRegistry {
 		}
 		if (!isBri) {
 			throw new NonConformeException(
-					"Votre classe n'implemente pas ServiceBRi revenez");
+					"Votre classe n'impl�mente pas ServiceBRi revenez");
 		}
 
 		// non abstract
@@ -126,19 +125,18 @@ public class ServiceRegistry {
 	}
 
 	// renvoie la classe de service (numService -1)
-	public static Class<? extends Runnable> getServiceClass(int numService)throws java.lang.ArrayIndexOutOfBoundsException{
+	public static Class<? extends Runnable> getServiceClass(int numService) {
 		return servicesClasses.get(numService);
+
 	}
-	public static int getSizeOfServicesClasses(){
-		return servicesClasses.size();
-	}
+
 	// liste les activit�s pr�sentes
 	public static String toStringue() {
 		String result = "Activitees presentes :##";
 		for (int i = 0; i < servicesClasses.size(); i++) {
 			int cpt = i;
 			result = servicesClasses.get(i).getSimpleName() + " : " + (cpt++)
-					+ "##";
+					+ "\n";
 		}
 
 		return result;
