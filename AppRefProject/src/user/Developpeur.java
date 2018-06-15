@@ -6,12 +6,12 @@ import bri.Service;
 
 public class Developpeur {
 	private ArrayList<Service> mesServices;
-	private String login,passeword,ftp;
+	private String login,password,ftp;
 	
 	
-	public Developpeur(String login, String passeword, String ftp) {
+	public Developpeur(String login, String password, String ftp) {
 	this.login=login;
-	this.passeword=passeword;
+	this.password=password;
 	this.ftp=ftp;
 	mesServices= new ArrayList<>();
 	}
@@ -40,9 +40,9 @@ public class Developpeur {
 
 		return result;
 	}
-	public boolean verifyPasseword(String login, String passeword){
-		
-		if(this.login==login && this.passeword==passeword){
+	public boolean verifypassword(String login, String password){
+
+		if(this.login.equals(login) && this.password.equals(password)){
 			return true;
 		}else 
 			return false;
