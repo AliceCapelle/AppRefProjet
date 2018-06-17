@@ -27,13 +27,19 @@ public class ServiceRegistry {
 			servicesClasses.add(c);
 			System.out.println("service ajout�!");
 		} catch (NonConformeException e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-
-		// verifier la conformite par introspection
-		// si non conforme --> exception avec message clair
-		// si conforme, ajout au vector
-
+	}
+	
+	public static void updateService(Class<? extends Runnable> c) {
+		try {
+			servicesClasses.remove(c);
+			verifyBRI(c);
+			servicesClasses.add(c);
+			System.out.println("service ajout�!");
+		} catch (NonConformeException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private static boolean verifyBRI(Class<?> c) throws NonConformeException {
@@ -118,7 +124,7 @@ public class ServiceRegistry {
 		}
 		if (!isStringToStringWithoutExep) {
 			throw new NonConformeException(
-					"Votre classe n'as pas StringToString Without Exep revenez");
+					"Votre classe n'as pas StringToString sans exception revenez");
 		} else {
 			return true;
 		}
@@ -137,7 +143,7 @@ public class ServiceRegistry {
 		String result = "Activitees presentes :##";
 		for (int i = 0; i < servicesClasses.size(); i++) {
 			int cpt = i;
-			result = servicesClasses.get(i).getSimpleName() + " : " + (++cpt)
+			result += "> " + servicesClasses.get(i).getSimpleName() + " : " + (++cpt)
 					+ "##";
 		}
 

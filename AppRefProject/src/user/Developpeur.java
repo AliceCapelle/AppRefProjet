@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import bri.Service;
 
 public class Developpeur {
-	private ArrayList<Service> mesServices;
+	private ArrayList<Class<? extends Runnable>> mesServices;
 	private String login,password,ftp;
 	
 	
@@ -25,17 +25,16 @@ public class Developpeur {
 	public void setFtp(String ftp) {
 		this.ftp = ftp;
 	}
-	public void addService(Service newService){
-		mesServices.add(newService);
+	public void addService(Class<? extends Runnable> c){
+		mesServices.add(c);
 	}
-	public void deleteService(Service oldService){
-		mesServices.remove(oldService);
+	public void deleteService(Class<? extends Runnable> c){
+		mesServices.remove(c);
 	}
 	public String getServices(){
 		String result = "tous mes services :##";
 		for(int i = 0; i<mesServices.size();i++){
-			int cpt = i;
-			result= mesServices.get(i).getSimpleName()+" : "+(cpt++)+"##";
+			result= "> " + mesServices.get(i).getSimpleName()+"##";
 		}
 
 		return result;

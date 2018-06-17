@@ -50,6 +50,8 @@ class Application {
 			
 			String line;
 			
+			
+			
 			while (true){
 				
 				// reception + affichage
